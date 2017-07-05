@@ -14,23 +14,37 @@ class ViewController: UIViewController {
     @IBOutlet weak var img2: UIImageView!
     @IBOutlet weak var txtfURL1: UITextField!
     @IBOutlet weak var txtfURL2: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    //1.Hàm xử lí sự kiện khi nhấn button
+    
+    //1.Hàm xử lí hiện cảnh báo
+    //Hiện cảnh báo lỗi
+    func showAlertDialog(message: String) {
+        let alertView = UIAlertController(title: "Notification!!!", message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertView.addAction(action)
+        self.present(alertView, animated: true, completion: nil)
+    }
+
+    //2.Hàm xử lí sự kiện khi nhấn button
     @IBAction func btnLoadImg(_ sender: Any) {
         //kiem tra textfield co rong
         if (txtfURL1.text == "" || txtfURL2.text == "")
         {
             showAlertDialog(message: "Đường dẫn không được rỗng")
         }
-        else{
+            
+        else
+        {
             let thread1 = DispatchQueue(label: "THREAD 1")
             let thread2 = DispatchQueue(label: "THREAD 2")
             //Chạy thread 1,(bất đồng bộ async)
@@ -59,14 +73,6 @@ class ViewController: UIViewController {
                 }).resume()
             }
         }
-    }
-    //  //.Hàm xử lí hiện cảnh báo
-    //Hiện cảnh báo
-    func showAlertDialog(message: String) {
-        let alertView = UIAlertController(title: "Notification!!!", message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alertView.addAction(action)
-        self.present(alertView, animated: true, completion: nil)
     }
 }
 
